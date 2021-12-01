@@ -1,14 +1,17 @@
-LibraryConsole: UserInterface.o LibraryStaff.o Librarian.o
-	g++ UserInterface.o LibraryStaff.o Librarian.o -o LibraryConsole
+binary: UserInterface.o libLibrary.a
+	g++ -o binary UserInterface.o -L. -lLibrary
 
 UserInterface.o: UserInterface.cpp
 	g++ -c UserInterface.cpp
 
-LibraryStaff.o: LibraryStaff.cpp
-	g++ -c LibraryStaff.cpp
+libLibrary.a: Librarian.o LibraryStaff.o
+	ar cr libLibrary.a Librarian.o LibraryStaff.o
 
 Librarian.o: Librarian.cpp
 	g++ -c Librarian.cpp
 
+LibraryStaff.o: LibraryStaff.cpp
+	g++ -c LibraryStaff.cpp
+
 clean:
-	rm -rf *.o LibraryConsole
+	rm -f * .o * .a binary
